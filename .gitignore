@@ -1,0 +1,35 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# Logs
+*.log
+
+# Dependencies (if any examples with code)
+node_modules/
+venv/
+__pycache__/
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Secrets (never commit)
+.env
+.env.local
+*.pem
+*.key
