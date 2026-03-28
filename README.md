@@ -46,7 +46,7 @@ cp -r skills/* ~/.claude/skills/
 
 ### Option 3: Try Online
 
-Visit: **[econ-research-skills demo](https://your-demo-url.com)** *(coming soon)*
+Visit: **[Economics Research Assistant](https://anninh-blog.vercel.app/projects/research-assistant)** for the live demo.
 
 ---
 
