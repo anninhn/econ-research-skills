@@ -9,409 +9,341 @@
 
 ## What Is This?
 
-A collection of **8 specialized skills** that transform AI assistants into expert research methodology consultants. Each skill contains:
+A three-layer system that turns AI assistants into expert research methodology consultants:
 
-- ✅ Complete theoretical knowledge
-- ✅ Step-by-step workflows
-- ✅ Validation checklists
-- ✅ Code templates
-- ✅ Real examples with solutions
-- ✅ Academic references
+| Layer | Component | Scope | Purpose |
+|-------|-----------|-------|---------|
+| **1. Always-On** | Project `CLAUDE.md` | Per project | Background quality scanner |
+| **2. Orchestrator** | `/research-assistant` | Global | Routes to the right method |
+| **3. Specialists** | `/did-validator`, etc. | Global | Deep method-specific knowledge |
 
-**Perfect for:** PhD students, faculty, researchers, and anyone doing causal inference in economics.
+Each specialist skill contains:
+- Complete theoretical knowledge
+- Step-by-step workflows
+- Validation checklists
+- Code templates (Stata/R)
+- Real examples with solutions
+- Academic references
 
 ---
 
-## Quick Start (2 minutes)
-
-### Option 1: Claude Code (Recommended)
+## Quick Start
 
 ```bash
-# Clone the repository
-git clone https://github.com/ninhnguyen/econ-research-skills.git
+# Clone and install (2 minutes)
+git clone https://github.com/anninhn/econ-research-skills.git
 cd econ-research-skills
+bash install.sh /path/to/your/research/project
 
-# Install skills (copies to Claude Code skills folder)
-cp -r skills/* ~/.claude/skills/
-
-# Restart Claude Code - skills load automatically!
+# Restart Claude Code — done!
 ```
 
-### Option 2: Any AI (ChatGPT, Claude Web, etc.)
+The install script:
+1. Copies 8 skills to `~/.claude/skills/` (global, available everywhere)
+2. Creates a project `CLAUDE.md` with always-on quality scanning (project-scoped)
 
-1. Open `skills/research-assistant.md`
-2. Copy entire contents
-3. Paste into AI conversation
-4. Ask your research question
+---
 
-### Option 3: Try Online
+## Three-Layer Architecture
 
-Visit: **[Economics Research Assistant](https://anninh-blog.vercel.app/projects/research-assistant)** for the live demo.
+```
+Layer 1: CLAUDE.md (project-level, always on)
+┌──────────────────────────────────────────────────┐
+│  Active the moment you open your project.         │
+│  Scans EVERY message for:                         │
+│  ├── Data flags ("I'll collect data later")       │
+│  ├── Result flags (effect > 100%)                 │
+│  ├── Method flags ("controls will fix it")         │
+│  └── Language flags ("proves causality")           │
+│                                                    │
+│  Lightweight. No deep method knowledge.            │
+│  Only active in your research project folder.      │
+└──────────────────────┬───────────────────────────┘
+                       │
+                       │ When user needs method-specific help
+                       ▼
+Layer 2: /research-assistant (orchestrator skill, global)
+┌──────────────────────────────────────────────────┐
+│  User describes their research question.           │
+│  AI classifies type → picks method → validates.    │
+│                                                    │
+│  Contains:                                         │
+│  ├── Method selection decision tree                │
+│  ├── Conversational question flow                  │
+│  └── Routes to appropriate specialist              │
+└──────────────────────┬───────────────────────────┘
+                       │
+                       │ When user needs deep method knowledge
+                       ▼
+Layer 3: Specialist skills (global, on demand)
+┌──────────────────────────────────────────────────┐
+│  /did-validator     /iv-validator                  │
+│  /rdd-validator     /event-study-validator         │
+│  /mechanism-designer  /data-auditor                │
+│  /red-flag-detector                                │
+│                                                    │
+│  Each contains:                                    │
+│  ├── Full theoretical knowledge                    │
+│  ├── Step-by-step workflows                        │
+│  ├── Code templates (Stata/R)                      │
+│  ├── Method-specific red flags                     │
+│  ├── Examples with solutions                       │
+│  └── Academic references                           │
+└──────────────────────────────────────────────────┘
+```
+
+### What Lives Where
+
+| Component | CLAUDE.md | /research-assistant | Specialist Skills |
+|-----------|-----------|---------------------|-------------------|
+| Universal red flags | Always scans | - | - |
+| Method selection | - | Yes | - |
+| Data availability check | Reminds to check | Routes to /data-auditor | - |
+| DiD assumptions | - | Basic check | Full validation + code |
+| RDD manipulation tests | - | - | Full validation + code |
+| IV exclusion restriction | - | - | Full validation + code |
+| Writing quality | Flags overclaiming | - | - |
+| Pre-submission full scan | - | - | /red-flag-detector |
 
 ---
 
 ## Skills Overview
 
-### Master Orchestrator
+### Method Selection: Which Skill Do I Need?
 
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| `research-assistant` | Routes to appropriate specialist | Any research question |
+Answer these questions in order:
 
-### Causal Inference Methods
+**1. Is there a sharp cutoff that determines treatment?**
+- YES → `/rdd-validator`
+- NO → next question
 
-| Skill | Method | Key Assumption | Best For |
-|-------|--------|----------------|----------|
-| `did-validator` | Difference-in-Differences | Parallel trends | Policy evaluations |
-| `rdd-validator` | Regression Discontinuity | No manipulation | Threshold-based policies |
-| `iv-validator` | Instrumental Variables | Exclusion restriction | Endogenous treatments |
-| `event-study-validator` | Event Study / Natural Experiment | Exogenous shock | Sharp timing events |
+**2. Do you have before/after + treatment/control groups?**
+- YES → `/did-validator`
+- NO → next question
 
-### Research Components
+**3. Is there a one-time exogenous shock (earthquake, law change)?**
+- YES → `/event-study-validator`
+- NO → next question
 
-| Skill | Purpose | Always Use |
-|-------|---------|------------|
-| `mechanism-designer` | Design testable mechanisms | After finding effects |
-| `data-auditor` | Verify data availability | Before any design |
-| `red-flag-detector` | Catch common mistakes | Always (background) |
+**4. Do you have a valid instrument?**
+- YES → `/iv-validator`
+- NO → Not sure? Start with `/research-assistant`
+
+### All Skills
+
+| Skill | Purpose | Slash Command |
+|-------|---------|---------------|
+| `research-assistant` | Master orchestrator — routes to the right method | `/research-assistant` |
+| `did-validator` | Validate difference-in-differences designs | `/did-validator` |
+| `rdd-validator` | Validate regression discontinuity designs | `/rdd-validator` |
+| `iv-validator` | Validate instrumental variables designs | `/iv-validator` |
+| `event-study-validator` | Validate event study / natural experiment designs | `/event-study-validator` |
+| `mechanism-designer` | Design testable mechanisms for causal effects | `/mechanism-designer` |
+| `data-auditor` | Verify data availability before committing to a design | `/data-auditor` |
+| `red-flag-detector` | Comprehensive pre-submission scan for problems | `/red-flag-detector` |
 
 ---
 
 ## Usage Examples
 
-### Example 1: "Is my DiD design valid?"
+### Example 1: Start with a research question
 
 ```
-User: I want to study the effect of Vietnam's provincial merger on
-      night lights. 63 provinces merged into 34 on June 12, 2025.
-      31 lost capital (treatment), 21 kept capital (control).
+You: /research-assistant
+     "I want to study the effect of Vietnam's provincial merger
+      on night lights. 63 provinces merged into 34 on June 12, 2025."
 
-Claude: [Activates research-assistant → did-validator]
+AI:  Good question. Before we pick a method:
 
-       ✅ CLASSIFICATION: Difference-in-Differences
+     DATA CHECK:
+     - Night lights: VIIRS satellite data is available ✅
+     - Treatment: provinces that lost capital ✅
+     - Timing: June 2025 ✅
 
-       DATA CHECK:
-       - Outcome: Night lights ✅ (VIIRS available)
-       - Treatment: Lost capital ✅ (binary, observable)
-       - Timing: June 12, 2025 ✅ (sharp)
+     This looks like a Difference-in-Differences setup.
 
-       ASSUMPTIONS:
-       - Parallel trends: Testable (run event study)
-       - No anticipation: Check pre-June 2025 effects
-       - SUTVA: Warning - workers may move
-
-       RED FLAGS:
-       ⚠️ Selection: Why was capital kept/lost?
-          → Use within-merger fixed effects
-
-       SPECIFICATION:
-       Y_ist = β(Lost_i × Post_t) + γ_s + δ_t + ε_it
-       where γ_s = merger fixed effects
-
-       NEXT STEPS:
-       1. Run event study (test parallel trends)
-       2. Use within-merger FE
-       3. Check for anticipation effects
+     Let me check a few things:
+     ├── Can you get data before 2023? (need 2+ years pre-treatment)
+     ├── Why did some provinces keep capital? (selection concern ⚠️)
+     └── Can workers move between provinces? (SUTVA concern)
 ```
 
-### Example 2: "Can I use RDD here?"
+### Example 2: Validate a specific method
 
 ```
-User: Students with test scores ≥ 80 get scholarships.
-      Can I use RDD to study the effect on college attendance?
+You: /rdd-validator
+     "Students with test scores ≥ 80 get scholarships.
+      Can I use RDD to study the effect on college attendance?"
 
-Claude: [Activates rdd-validator]
+AI:  ✅ VALID RDD SETUP
 
-       ✅ VALID RDD SETUP
+     RUNNING VARIABLE: Test score (0-100)
+     CUTOFF: 80 (sharp)
 
-       RUNNING VARIABLE: Test score (0-100)
-       CUTOFF: 80 (sharp)
-       TREATMENT: Scholarship receipt
+     ⚠️ MANIPULATION CHECK REQUIRED:
+     Students might study harder to get ≥ 80
 
-       ⚠️ MANIPULATION CHECK REQUIRED:
-       Students might study harder to get ≥ 80
-
-       TEST: Run rddensity test
-       H0: Density of scores continuous at 80
-
-       IF MANIPULATION DETECTED:
-       - Donut RDD: Drop scores 78-82
-       - Or: Find alternative identification
-
-       ESTIMATION:
-       ✅ USE: Local linear regression (rdrobust)
-       ❌ DON'T: High-order polynomial
-
-       CODE (Stata):
-       rddensity score, c(80)
-       rdrobust attendance score, c(80)
+     TEST: Run rddensity test
+     CODE (Stata): rddensity score, c(80)
+                   rdrobust attendance score, c(80)
 ```
 
-### Example 3: "Is my instrument valid?"
+### Example 3: Red flags caught automatically
 
 ```
-User: I'm using distance to college as instrument for education.
-      First-stage F-stat is 4.5.
+You: "My IV first-stage F-stat is 4.5"
 
-Claude: [Activates iv-validator + red-flag-detector]
+AI:  🚨 RED FLAG: WEAK INSTRUMENT
 
-       🚨 RED FLAG: WEAK INSTRUMENT
+     F = 4.5 < 10 → Instrument is weak
 
-       F = 4.5 < 10 → Instrument is weak
+     CONSEQUENCES:
+     - 2SLS biased toward OLS
+     - Confidence intervals unreliable
 
-       CONSEQUENCES:
-       - 2SLS biased toward OLS
-       - Confidence intervals unreliable
-
-       FIXES:
-       1. Add controls to strengthen first stage
-       2. Use weak-instrument robust methods:
-          - Anderson-Rubin test
-          - LIML instead of 2SLS
-       3. Find stronger instrument
-
-       ⚠️ EXCLUSION CHECK:
-       Distance may affect wages through channels OTHER than education:
-       - Access to jobs
-       - Social networks
-       - Local labor markets
-
-       Need stronger argument for exclusion!
+     FIXES:
+     1. Add controls to strengthen first stage
+     2. Use weak-instrument robust methods (Anderson-Rubin, LIML)
+     3. Find a stronger instrument
 ```
 
 ---
 
-## Skill Architecture
+## Installation
 
-```
-research-assistant.md
-         │
-         ├─→ data-auditor.md
-         │   "Is data available?"
-         │
-         ├─→ [Method Validator]
-         │   ├─→ did-validator.md
-         │   ├─→ rdd-validator.md
-         │   ├─→ iv-validator.md
-         │   └─→ event-study-validator.md
-         │
-         ├─→ mechanism-designer.md
-         │   "How does X affect Y?"
-         │
-         └─→ red-flag-detector.md
-             "What could go wrong?"
-```
-
----
-
-## Method Selection Guide
-
-```
-                Can you randomize?
-                       │
-          ┌────────────┴────────────┐
-         YES                        NO
-          │                          │
-      ┌───▼───┐           ┌──────────▼──────────┐
-      │  RCT  │           │  Is there a cutoff? │
-      └───────┘           └──────────┬──────────┘
-                                    │
-                      ┌─────────────┴─────────────┐
-                     YES                          NO
-                      │                           │
-               ┌──────▼──────┐         ┌──────────▼──────────┐
-               │     RDD     │         │ Before/After + T/C? │
-               └─────────────┘         └──────────┬──────────┘
-                                                  │
-                                    ┌─────────────┴─────────────┐
-                                   YES                          NO
-                                    │                           │
-                             ┌──────▼──────┐          ┌─────────▼─────────┐
-                             │     DiD     │          │ Have instrument?  │
-                             └─────────────┘          └─────────┬─────────┘
-                                                                │
-                                                  ┌─────────────┴─────────────┐
-                                                 YES                          NO
-                                                  │                           │
-                                           ┌──────▼──────┐            ┌───────▼───────┐
-                                           │     IV      │            │  Observational │
-                                           └─────────────┘            │    (weaker)    │
-                                                                      └───────────────┘
-```
-
----
-
-## Installation Details
-
-### Prerequisites
-
-- Claude Code installed, OR
-- Access to ChatGPT/Claude web, OR
-- Any AI assistant
-
-### Full Installation (Claude Code)
+### Option 1: Install Script (Recommended)
 
 ```bash
-# 1. Clone repository
-git clone https://github.com/ninhnguyen/econ-research-skills.git
+git clone https://github.com/anninhn/econ-research-skills.git
 cd econ-research-skills
 
-# 2. Backup existing skills (if any)
-mv ~/.claude/skills ~/.claude/skills.backup 2>/dev/null || true
+# Install skills + create project CLAUDE.md
+bash install.sh /path/to/your/research/project
 
-# 3. Install skills
+# Restart Claude Code
+```
+
+What gets installed:
+
+```
+~/.claude/skills/                          ← Global (all projects)
+├── research-assistant/SKILL.md
+├── did-validator/SKILL.md
+├── rdd-validator/SKILL.md
+├── iv-validator/SKILL.md
+├── event-study-validator/SKILL.md
+├── mechanism-designer/SKILL.md
+├── data-auditor/SKILL.md
+└── red-flag-detector/SKILL.md
+
+/your/research/project/
+└── CLAUDE.md                              ← Project (this project only)
+```
+
+### Option 2: Manual Install
+
+```bash
+# Skills (global)
 mkdir -p ~/.claude/skills
 cp -r skills/* ~/.claude/skills/
 
-# 4. Verify installation
-ls -R ~/.claude/skills/
-# Should show:
-# ~/.claude/skills/research-assistant.md
-# ~/.claude/skills/causal-inference/did-validator.md
-# ~/.claude/skills/causal-inference/rdd-validator.md
-# ...etc
-
-# 5. Restart Claude Code
-# Skills will load automatically on next conversation
+# Project CLAUDE.md (per project)
+cp templates/CLAUDE.md /path/to/your/project/CLAUDE.md
+# Then edit CLAUDE.md to add your project context
 ```
 
-### Using with ChatGPT or Claude Web
+### Option 3: Any AI (ChatGPT, Claude Web, etc.)
 
 ```bash
-# Copy a skill to clipboard
-cat skills/research-assistant.md | pbcopy  # Mac
-cat skills/research-assistant.md | xclip   # Linux
-
-# Then paste into your AI conversation
+# Copy a skill to clipboard and paste into your AI conversation
+cat skills/research-assistant/SKILL.md | pbcopy   # Mac
+cat skills/research-assistant/SKILL.md | xclip    # Linux
 ```
 
----
-
-## For Different Users
-
-### PhD Students
-
-**Start here:** `research-assistant.md` + `data-auditor.md`
-
-```
-You: "I want to study [X] but I'm not sure what method to use"
-
-Skill: Asks clarifying questions → Recommends method →
-       Validates assumptions → Provides specification
-```
-
-**Learning path:**
-1. Read `did-validator.md` (most common method)
-2. Try example problems
-3. Read references cited in skill
-
-### Faculty / Advisors
-
-**Use case:** Quickly validate student research designs
-
-```
-You: [Paste student's research design]
-
-Skill: Identifies problems → Suggests fixes →
-       Rates severity → Provides teaching points
-```
-
-### Active Researchers
-
-**Use case:** Pre-submission validation
-
-```
-You: "Check my IV design: [describe instrument]"
-
-Skill: Tests all assumptions → Identifies weaknesses →
-       Suggests robustness checks → Cites relevant papers
-```
-
----
-
-## Common Problems Solved
-
-| Problem | Skill Solution |
-|---------|---------------|
-| "I don't know what method to use" | research-assistant routes to correct method |
-| "Is my data sufficient?" | data-auditor checks structure, quality |
-| "Parallel trends look OK" | did-validator makes you TEST statistically |
-| "My instrument seems reasonable" | iv-validator forces explicit exclusion argument |
-| "Students might manipulate scores" | rdd-validator provides manipulation tests |
-| "Effect is huge (500%)" | red-flag-detector flags implausible results |
-| "How does X affect Y?" | mechanism-designer creates testable channels |
-
----
-
-## Real Research Workflow
-
-### Before Data Collection
-
-```
-1. /research-assistant "I want to study [X] effect on [Y]"
-   → Get method recommendation
-
-2. /data-auditor "What data do I need for [method]?"
-   → Verify data availability BEFORE investing time
-
-3. /[method]-validator "Check my design: [details]"
-   → Validate assumptions, identify problems
-```
-
-### During Analysis
-
-```
-4. /[method]-validator "My results show [X]"
-   → Check if results are plausible
-   → Get robustness check suggestions
-
-5. /mechanism-designer "How might X affect Y?"
-   → Design mechanism tests
-
-6. /red-flag-detector "Any problems with [design]?"
-   → Final check before writing
-```
-
-### Before Submission
-
-```
-7. Run through ALL validator checklists
-8. Address every red flag
-9. Document robustness checks
-```
-
----
-
-## Advanced Features
-
-### Combining Skills
-
-```
-User: "I have an IV with potential manipulation at cutoff"
-
-Claude: [Combines iv-validator + rdd-validator]
-       - Treat as fuzzy RDD with IV interpretation
-       - Test for manipulation first
-       - If manipulation exists, use cutoff as IV
-```
-
-### Custom Skill Creation
+### Verify Installation
 
 ```bash
-# Create your own skill
-nano ~/.claude/skills/my-field-specialty.md
+ls ~/.claude/skills/
+# Should show 8 directories:
+# data-auditor  did-validator  event-study-validator
+# iv-validator  mechanism-designer  rdd-validator
+# red-flag-detector  research-assistant
 ```
+
+---
+
+## Project CLAUDE.md
+
+The `CLAUDE.md` file is the always-on quality scanner. It only activates in the project folder where it lives, so your other projects are unaffected.
+
+**Customize it for your project:**
 
 ```markdown
----
-name: my-field-specialty
-description: Specialized knowledge for [my field]
-trigger: "[field-specific keywords]"
+# Economics Research Project
+
+### Always-On Quality Scanner
+[Keep the default flags — they apply to all research projects]
+
+### Project Context     ← ADD YOUR PROJECT INFO HERE
+- Research question: Effect of X on Y
+- Data source: VIIRS night lights, 2019-2025
+- Method: Difference-in-Differences
+- Treatment: [describe]
+```
+
+Key principle: `CLAUDE.md` is **project-scoped**. Skills are **global**. Other projects are not affected.
+
 ---
 
-# My Field Specialty
+## Research Workflow
 
-[Your content here - follow existing skill format]
+### Phase 1: Exploring
+
+```
+/research-assistant "I want to study [X]'s effect on [Y]"
+→ Get method recommendation
+→ AI asks about data, identification, mechanism
+```
+
+### Phase 2: Validating
+
+```
+/did-validator "Check my DiD design: [details]"
+→ Validates assumptions
+→ Flags problems
+→ Suggests specification
+→ Provides code templates
+```
+
+### Phase 3: Writing
+
+```
+/red-flag-detector "Scan my design for problems"
+→ Full pre-submission check
+→ Writing quality review
+→ Missing tests identified
+```
+
+---
+
+## Directory Structure
+
+```
+econ-research-skills/
+├── README.md
+├── LICENSE
+├── install.sh                         ← Install script
+├── templates/
+│   └── CLAUDE.md                      ← Template for project CLAUDE.md
+└── skills/
+    ├── research-assistant/SKILL.md    ← Orchestrator
+    ├── did-validator/SKILL.md         ← DiD validation
+    ├── rdd-validator/SKILL.md         ← RDD validation
+    ├── iv-validator/SKILL.md          ← IV validation
+    ├── event-study-validator/SKILL.md ← Event study validation
+    ├── mechanism-designer/SKILL.md    ← Mechanism testing
+    ├── data-auditor/SKILL.md          ← Data availability check
+    └── red-flag-detector/SKILL.md     ← Pre-submission scan
 ```
 
 ---
@@ -421,27 +353,24 @@ trigger: "[field-specific keywords]"
 ### Skills Not Loading
 
 ```bash
-# Check skills are in right place
-ls ~/.claude/skills/
+# Check skills are in right place (must be one level deep)
+ls ~/.claude/skills/*/
 
-# Should see: research-assistant.md, causal-inference/, general/
-
-# Check file permissions
-chmod 644 ~/.claude/skills/*.md
-chmod 755 ~/.claude/skills/*/
+# Each should contain SKILL.md:
+# ~/.claude/skills/did-validator/SKILL.md  ← CORRECT
+# ~/.claude/skills/causal-inference/did-validator/SKILL.md  ← WRONG (too deep)
 ```
+
+### CLAUDE.md Not Activating
+
+- Must be in the project directory where `CLAUDE.md` lives
+- Check: `ls /your/project/CLAUDE.md`
+- Restart Claude Code after creating
 
 ### Skill Not Activating
 
-- Use explicit trigger: `/did-validator` instead of just asking
-- Check trigger keywords in skill frontmatter
-- Be more specific in your question
-
-### Incomplete Responses
-
-- Ask follow-up questions
-- Reference specific sections: "Check the parallel trends section"
-- Provide more context
+- Use the explicit slash command: `/did-validator`
+- Be specific about your research question
 
 ---
 
@@ -450,22 +379,19 @@ chmod 755 ~/.claude/skills/*/
 ### Adding New Skills
 
 1. Fork repository
-2. Create skill in appropriate folder
+2. Create skill as `skills/<name>/SKILL.md`
 3. Follow existing format:
-   - YAML frontmatter with triggers
-   - Knowledge section
-   - Workflow section
-   - Checklists
-   - Examples
-   - References
+   - YAML frontmatter with `name`, `description`, `user-invocable: true`
+   - ROLE section
+   - KNOWLEDGE section
+   - WORKFLOW section
+   - EXAMPLES section
+   - REFERENCES section
 4. Submit pull request
 
 ### Improving Existing Skills
 
-Open an issue describing:
-- What's missing
-- What's wrong
-- What could be better
+Open an issue describing what's missing, wrong, or could be better.
 
 ---
 
@@ -504,7 +430,7 @@ If these skills help your research:
   author = {Ninh Nguyen and Claude},
   title = {Economics Research Skills for AI Assistants},
   year = {2025},
-  howpublished = {\url{https://github.com/ninhnguyen/econ-research-skills}},
+  howpublished = {\url{https://github.com/anninhn/econ-research-skills}},
   note = {Skills for causal inference research design validation}
 }
 ```
@@ -513,19 +439,10 @@ If these skills help your research:
 
 ## License
 
-MIT License - use freely for academic and research purposes.
+MIT License — use freely for academic and research purposes.
 
 ---
 
-## Acknowledgments
+**Questions?** [Open an issue](https://github.com/anninhn/econ-research-skills/issues)
 
-Skills developed based on:
-- Methodology from top economics journals (AER, QJE, Econometrica, JPE, Restud)
-- Teaching experience in graduate causal inference
-- Real research consulting experience
-
----
-
-**Questions?** [Open an issue](https://github.com/ninhnguyen/econ-research-skills/issues)
-
-**Found this useful?** Star ⭐ the repo!
+**Found this useful?** Star the repo!

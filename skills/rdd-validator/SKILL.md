@@ -1,14 +1,9 @@
 ---
 name: rdd-validator
-description: Validate regression discontinuity design research
-trigger:
-  - user mentions "regression discontinuity"
-  - user mentions "RDD" or "RD design"
-  - user mentions "cutoff" or "threshold"
-  - user mentions "running variable" or "assignment variable"
-  - user proposes comparing units above/below a threshold
-requires: [general/data-auditor]
+description: Validate regression discontinuity design research. Use when user mentions RDD, regression discontinuity, cutoff, threshold, running variable, assignment variable, or proposes comparing units above/below a threshold.
+user-invocable: true
 ---
+
 
 # Regression Discontinuity Design Validator
 

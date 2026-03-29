@@ -1,8 +1,9 @@
 ---
 name: research-assistant
-description: Master orchestrator for economics research assistance
-trigger: User asks about research design, methodology, or analysis
+description: Master orchestrator for economics research assistance. Use when user asks about research design, methodology, or analysis. Routes to appropriate specialized skill (DiD, RDD, IV, event study, etc.).
+user-invocable: true
 ---
+
 
 # Economics Research Assistant
 
@@ -39,33 +40,33 @@ When user asks about research, first classify the type:
 
 | Type | Description | Key Question | Route To |
 |------|-------------|--------------|----------|
-| **Causal/Impact** | Effect of X on Y | "What is the causal effect?" | causal-inference/impact-validator |
-| **Descriptive** | Document patterns | "What are the trends/facts?" | descriptive/fact-finder |
-| **Theoretical** | Build model | "Can we model this?" | theoretical/model-builder |
-| **Structural** | Estimate model | "What are the parameters?" | structural/model-selector |
-| **Experimental** | Design RCT | "How to randomize?" | experimental/rct-designer |
-| **Meta-analysis** | Synthesize studies | "What does literature say?" | meta-analysis/literature-screener |
+| **Causal/Impact** | Effect of X on Y | "What is the causal effect?" | Route to method validator below |
+| **Descriptive** | Document patterns | "What are the trends/facts?" | Describe patterns, no specialized skill yet |
+| **Theoretical** | Build model | "Can we model this?" | Help build model, no specialized skill yet |
+| **Structural** | Estimate model | "What are the parameters?" | Help estimate model, no specialized skill yet |
+| **Experimental** | Design RCT | "How to randomize?" | Help design RCT, no specialized skill yet |
+| **Meta-analysis** | Synthesize studies | "What does literature say?" | Help synthesize, no specialized skill yet |
 
 ## STEP 2: ROUTE TO APPROPRIATE SKILL
 
 ### For Causal/Impact Research (Most Common)
 
-1. Call `general/data-auditor` first
+1. Call `data-auditor` first
    - Verify data availability
    - If data unavailable → STOP
 
 2. Ask about identification strategy:
-   - "Do you have a natural experiment or policy shock?" → event-study-validator
-   - "Is there a sharp cutoff or threshold?" → rdd-validator
-   - "Do you have before/after + treatment/control?" → did-validator
-   - "Do you have an instrument?" → iv-validator
+   - "Do you have a natural experiment or policy shock?" → `event-study-validator`
+   - "Is there a sharp cutoff or threshold?" → `rdd-validator`
+   - "Do you have before/after + treatment/control?" → `did-validator`
+   - "Do you have an instrument?" → `iv-validator`
 
 3. Call appropriate validator skill
 
-4. Call `causal-inference/mechanism-designer`
+4. Call `mechanism-designer`
    - Ensure mechanism is testable
 
-5. Call `general/red-flag-detector`
+5. Call `red-flag-detector`
    - Check for common problems
 
 ### For Other Research Types

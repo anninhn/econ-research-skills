@@ -1,11 +1,9 @@
 ---
 name: red-flag-detector
-description: Detect common research design problems and red flags
-trigger:
-  - Always runs in background during research design discussions
-  - User proposes any research design
-  - User mentions results or findings
+description: Detect common research design problems and red flags. Runs in background during research design discussions. Use when user proposes any research design, mentions results or findings.
+user-invocable: true
 ---
+
 
 # Red Flag Detector
 

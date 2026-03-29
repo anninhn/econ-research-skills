@@ -1,14 +1,9 @@
 ---
 name: did-validator
-description: Validate difference-in-differences research design
-trigger:
-  - user mentions "difference in differences"
-  - user mentions "DiD"
-  - user mentions "before and after" + "treatment and control"
-  - user proposes comparing outcomes across groups over time
-  - user mentions "parallel trends"
-requires: [general/data-auditor]
+description: Validate difference-in-differences research design. Use when user mentions DiD, parallel trends, before-and-after with treatment and control, or comparing outcomes across groups over time.
+user-invocable: true
 ---
+
 
 # Difference-in-Differences Validator
 

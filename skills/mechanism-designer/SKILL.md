@@ -1,13 +1,9 @@
 ---
 name: mechanism-designer
-description: Design testable mechanisms for causal effects
-trigger:
-  - user claims causal effect without mechanism
-  - user asks "how does X affect Y"
-  - user mentions "mechanism" or "channel"
-  - user proposes mediation analysis
-requires: []
+description: Design testable mechanisms for causal effects. Use when user claims causal effect without mechanism, asks how X affects Y, mentions mechanism or channel, or proposes mediation analysis.
+user-invocable: true
 ---
+
 
 # Mechanism Designer
 

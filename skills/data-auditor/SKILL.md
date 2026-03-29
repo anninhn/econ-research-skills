@@ -1,12 +1,9 @@
 ---
 name: data-auditor
-description: Verify data availability before research design
-trigger:
-  - user proposes research topic
-  - user mentions outcome variable
-  - user mentions treatment variable
-  - user asks about data availability
+description: Verify data availability before research design. Use when user proposes research topic, mentions outcome or treatment variable, or asks about data availability. Runs before any research design work.
+user-invocable: true
 ---
+
 
 # Data Auditor
 

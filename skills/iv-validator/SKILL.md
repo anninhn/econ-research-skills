@@ -1,14 +1,9 @@
 ---
 name: iv-validator
-description: Validate instrumental variables research design
-trigger:
-  - user mentions "instrumental variables" or "IV"
-  - user mentions "instrument"
-  - user mentions "exclusion restriction"
-  - user mentions "2SLS" or "two-stage least squares"
-  - user proposes using Z to identify effect of X on Y
-requires: [general/data-auditor]
+description: Validate instrumental variables research design. Use when user mentions IV, instrumental variables, exclusion restriction, 2SLS, two-stage least squares, or proposes using Z to identify effect of X on Y.
+user-invocable: true
 ---
+
 
 # Instrumental Variables Validator
 

@@ -1,13 +1,9 @@
 ---
 name: event-study-validator
-description: Validate event study and natural experiment research designs
-trigger:
-  - user mentions "event study"
-  - user mentions "natural experiment"
-  - user mentions "policy shock" or "exogenous shock"
-  - user mentions "before and after" with a specific event date
-requires: [general/data-auditor]
+description: Validate event study and natural experiment research designs. Use when user mentions event study, natural experiment, policy shock, exogenous shock, or before-and-after with a specific event date.
+user-invocable: true
 ---
+
 
 # Event Study / Natural Experiment Validator
 
