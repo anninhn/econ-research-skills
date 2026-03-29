@@ -3,13 +3,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-blue)](https://claude.ai/code)
 
-**Professional-grade causal inference skills for AI assistants. Designed for economists, by economists.**
+**Professional-grade causal inference skills for Claude Code. Designed for economists, by economists.**
+
+**Try it now:** [Live Demo](https://anninh-blog.vercel.app/projects/research-assistant) — no install needed.
 
 ---
 
 ## What Is This?
 
-A three-layer system that turns AI assistants into expert research methodology consultants:
+8 specialized skills that turn Claude Code into an expert research methodology consultant, built on a three-layer architecture:
 
 | Layer | Component | Scope | Purpose |
 |-------|-----------|-------|---------|
@@ -25,9 +27,17 @@ Each specialist skill contains:
 - Real examples with solutions
 - Academic references
 
+### Two Ways to Use
+
+**Claude Code users (recommended):** Install skills for slash-command access (`/did-validator`, `/rdd-validator`, etc.) with automatic quality scanning in your project. The three-layer architecture works together seamlessly.
+
+**Any AI (ChatGPT, Claude Web, Gemini, etc.):** Copy any `skills/*/SKILL.md` file, paste it into your AI conversation as a system prompt, then ask your research question. The AI will follow the skill's validation workflow. No installation needed — just copy and paste.
+
 ---
 
 ## Quick Start
+
+### Claude Code (Recommended)
 
 ```bash
 # Clone and install (2 minutes)
@@ -41,6 +51,15 @@ bash install.sh /path/to/your/research/project
 The install script:
 1. Copies 8 skills to `~/.claude/skills/` (global, available everywhere)
 2. Creates a project `CLAUDE.md` with always-on quality scanning (project-scoped)
+
+### Any AI (No Install)
+
+```bash
+# Copy a skill and paste into ChatGPT, Claude Web, etc.
+cat skills/iv-validator/SKILL.md | pbcopy   # Mac
+cat skills/iv-validator/SKILL.md | xclip    # Linux
+# Then paste into your AI and ask: "Is my instrument valid?"
+```
 
 ---
 
@@ -250,14 +269,6 @@ cp -r skills/* ~/.claude/skills/
 # Project CLAUDE.md (per project)
 cp templates/CLAUDE.md /path/to/your/project/CLAUDE.md
 # Then edit CLAUDE.md to add your project context
-```
-
-### Option 3: Any AI (ChatGPT, Claude Web, etc.)
-
-```bash
-# Copy a skill to clipboard and paste into your AI conversation
-cat skills/research-assistant/SKILL.md | pbcopy   # Mac
-cat skills/research-assistant/SKILL.md | xclip    # Linux
 ```
 
 ### Verify Installation
